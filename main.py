@@ -8,6 +8,7 @@ from plugins.analytics.routes import router as analytics_router
 from core.auth import register, login, logout
 from config.settings import ALLOWED_ORIGINS
 from config.database import init_db
+from contextlib import asynccontextmanager
 
 app = FastAPI()
 
@@ -33,6 +34,11 @@ app.get("/logout")(logout)
 async def health():
     return {"status": "ok"}
 
-@app.on_event("startup")
-async def startup_event():
-    await init_db()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()  # Jalankan init_db saat startup
+    yield  # App jalan
+    # Optional: cleanup code saat shutdown
+    # Misalnya: client.close() kalau pake MongoDB
+
+app.lifespan = lifespan
