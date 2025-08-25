@@ -1,5 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from plugins.chat.routes import router as chat_router
 from plugins.duel.routes import router as duel_router
 from plugins.quest.routes import router as quest_router
@@ -9,6 +11,7 @@ from core.auth import register, login, logout
 from config.settings import ALLOWED_ORIGINS
 from config.database import init_db
 from contextlib import asynccontextmanager
+import os
 
 app = FastAPI()
 
@@ -34,9 +37,24 @@ app.get("/logout")(logout)
 async def health():
     return {"status": "ok"}
 
+@app.get("/", response_class=HTMLResponse)
+async def serve_html(request: Request):
+    try:
+        with open("index.html", "r") as f:
+            return HTMLResponse(content=f.read(), status_code=200)
+    except FileNotFoundError:
+        return HTMLResponse(content="<h1>404 - HTML File Not Found</h1>", status_code=500)
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await init_db()
+    try:
+        await init_db()
+    except Exception as e:
+        print(f"Error during startup: {e}")
+        raise
     yield
 
 app.lifespan = lifespan
+
+# Mount static files (optional, kalau pake folder static)
+app.mount("/static", StaticFiles(directory="."), name="static")
