@@ -1,6 +1,6 @@
 import bcrypt
 import jwt
-from ..config.settings import SECRET_KEY
+from config.settings import SECRET_KEY  # Ubah dari ..config jadi config
 
 def hash_password(pw: str):
     return bcrypt.hashpw(pw.encode(), bcrypt.gensalt())
