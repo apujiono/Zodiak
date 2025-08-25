@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from core.auth import get_current_user
 from models.user import UserUpdate
-from config.database import db
-from utils.security import hash_password
+from config.database import db  # Ubah dari ..config jadi config
+from utils.security import hash_password  # Ubah dari ..utils jadi utils
 
 router = APIRouter(prefix="/user", tags=["user_management"])
 
@@ -14,7 +14,7 @@ async def get_profile(username: str = Depends(get_current_user)):
             raise HTTPException(404, "User not found")
         return {"username": user["username"], "zodiac": user["zodiac"], "bio": user["bio"], "cosmo_points": user["cosmo_points"]}
     except Exception as e:
-        from utils.logger import log_error
+        from utils.logger import log_error  # Ubah dari ..utils jadi utils
         log_error(e)
         raise HTTPException(500, "Server error")
 
@@ -29,7 +29,7 @@ async def update_profile(update: UserUpdate, username: str = Depends(get_current
             raise HTTPException(400, "No changes made")
         return {"msg": "Profile updated"}
     except Exception as e:
-        from utils.logger import log_error
+        from utils.logger import log_error  # Ubah dari ..utils jadi utils
         log_error(e)
         raise HTTPException(500, "Server error")
 
@@ -39,6 +39,6 @@ async def delete_account(username: str = Depends(get_current_user)):
         await db.users.update_one({"username": username}, {"$set": {"is_active": False}})
         return {"msg": "Account deactivated"}
     except Exception as e:
-        from utils.logger import log_error
+        from utils.logger import log_error  # Ubah dari ..utils jadi utils
         log_error(e)
         raise HTTPException(500, "Server error")
