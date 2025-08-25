@@ -1,5 +1,5 @@
 from fastapi import WebSocket, WebSocketDisconnect
-from config.database import db
+from config.database import db  # Ubah dari ..config jadi config
 
 connections = {}
 
@@ -21,5 +21,5 @@ async def handle_chat(websocket: WebSocket, room: str, username: str):
         for conn in connections[room]:
             await conn.send_text(f"{username} leaves {room} Temple!")
     except Exception as e:
-        from utils.logger import log_error
+        from utils.logger import log_error  # Ubah dari ..utils jadi utils
         log_error(e)
