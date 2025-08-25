@@ -3,6 +3,6 @@ import os
 
 load_dotenv()  # Load .env file
 
-MONGO_URI = os.getenv("MONGO_URI=mongodb+srv://apujiono11:6M4Lath4xt0qXxfI@tuyul.yb1kw0z.mongodb.net/?retryWrites=true&w=majority&appName=Tuyul
+MONGO_URI = os.getenv("mongodb+srv://apujiono11:jaA64xwDjTsIr04C@zodiak-cosmo.zjs0drb.mongodb.net/?retryWrites=true&w=majority&appName=zodiak-cosmo")
 FLASK_SECRET_KEY=umyWDQweHet4varHDoT7o9T0jrYKJhSL")
 SECRET_KEY = os.getenv("superrahasia123")
