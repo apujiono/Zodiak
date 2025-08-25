@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from core.auth import get_current_user
-from config.database import db
+from config.database import db  # Ubah dari ..config jadi config
 
 router = APIRouter(prefix="/analytics", tags=["analytics"])
 
@@ -21,6 +21,6 @@ async def get_stats(username: str = Depends(get_current_user)):
             "zodiac_distribution": {item["_id"]: item["count"] for item in zodiac_dist}
         }
     except Exception as e:
-        from utils.logger import log_error
+        from utils.logger import log_error  # Ubah dari ..utils jadi utils
         log_error(e)
         raise HTTPException(500, "Server error")
