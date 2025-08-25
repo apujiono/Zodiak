@@ -11,7 +11,6 @@ from config.database import init_db
 
 app = FastAPI()
 
-# CORS untuk frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
@@ -20,24 +19,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Register plugin routes
 app.include_router(chat_router)
 app.include_router(duel_router)
 app.include_router(quest_router)
 app.include_router(user_router)
 app.include_router(analytics_router)
 
-# Core routes
 app.post("/register")(register)
 app.post("/login")(login)
 app.get("/logout")(logout)
 
-# Health check untuk Railway
 @app.get("/health")
 async def health():
     return {"status": "ok"}
 
-# Startup event untuk init database
 @app.on_event("startup")
 async def startup_event():
     await init_db()
