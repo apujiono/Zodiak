@@ -1,0 +1,6 @@
+{
+  "provider": "node",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "startCommand": "npx serve -s build -p $PORT"
+}
