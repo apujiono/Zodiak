@@ -36,9 +36,7 @@ async def health():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await init_db()  # Jalankan init_db saat startup
-    yield  # App jalan
-    # Optional: cleanup code saat shutdown
-    # Misalnya: client.close() kalau pake MongoDB
+    await init_db()
+    yield
 
 app.lifespan = lifespan
