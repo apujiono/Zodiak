@@ -1,7 +1,6 @@
 from datetime import datetime
 
 def get_zodiac(birth_date: str) -> str:
-    # Format: YYYY-MM-DD
     date = datetime.strptime(birth_date, "%Y-%m-%d")
     day, month = date.day, date.month
     if (month == 3 and day >= 21) or (month == 4 and day <= 19): return "Aries"
