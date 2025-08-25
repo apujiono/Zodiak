@@ -1,5 +1,5 @@
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, Depends
-from ..core.auth import get_current_user
+from core.auth import get_current_user
 from .websocket import handle_chat
 
 router = APIRouter(prefix="/chat", tags=["chat"])
