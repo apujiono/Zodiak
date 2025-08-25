@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 
-const socket = io('http://your-backend-url');
+const socket = io(process.env.BACKEND_URL || 'https://your-backend-service.up.railway.app');
 
 function ChatRoom() {
   const { room } = useParams();
