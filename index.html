@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zodiak Cosmo Chat - Inspired by Saint Seiya</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Zodiak Cosmo Chat</h1>
+    <div id="auth">
+      <h2>Login/Register</h2>
+      <input id="username" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
+      <input id="zodiac" placeholder="Zodiak (e.g., Aries)">
+      <button onclick="register()">Register</button>
+      <button onclick="login()">Login</button>
+      <button onclick="logout()">Logout</button>
+      <p id="auth-message"></p>
+    </div>
+    <div id="dashboard" style="display: none;">
+      <h2>Dashboard</h2>
+      <p>Welcome, <span id="user-username"></span> (<span id="user-zodiak"></span>)</p>
+      <p>Cosmo Points: <span id="cosmo-points"></p>
+      <p>Bio: <span id="user-bio"></p>
+      <button onclick="updateProfile()">Edit Profile</button>
+      <button onclick="deleteAccount()">Delete Account</button>
+      <h3>Chat Room</h3>
+      <select id="room">
+        <option value="Aries">Aries Temple</option>
+        <option value="Leo">Leo Temple</option>
+        <!-- Tambah zodiak lain -->
+      </select>
+      <div id="messages"></div>
+      <input id="message-input" placeholder="Send message">
+      <button onclick="sendMessage()">Send</button>
+      <h3>Daily Quest</h3>
+      <p id="quest-task"></p>
+      <h3>Duel</h3>
+      <input id="opponent" placeholder="Opponent username">
+      <button onclick="startDuel()">Start Duel</button>
+      <p id="duel-result"></p>
+      <h3>Analytics (Admin Only)</h3>
+      <button onclick="getStats()">Get Stats</button>
+      <p id="total-users"></p>
+      <p id="total-messages"></p>
+      <div id="zodiac-dist"></div>
+    </div>
+  </div>
+</body>
+</html>
