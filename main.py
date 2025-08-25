@@ -7,6 +7,7 @@ from plugins.user_management.routes import router as user_router
 from plugins.analytics.routes import router as analytics_router
 from core.auth import register, login, logout
 from config.settings import ALLOWED_ORIGINS
+from config.database import init_db
 
 app = FastAPI()
 
@@ -35,3 +36,8 @@ app.get("/logout")(logout)
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+# Startup event untuk init database
+@app.on_event("startup")
+async def startup_event():
+    await init_db()
