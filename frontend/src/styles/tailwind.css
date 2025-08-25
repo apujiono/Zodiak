@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.glow-effect {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.star-bg {
+  background: url('/assets/stars.png');
+  animation: star-twinkle 3s infinite;
+}
+
+@keyframes star-twinkle {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.text-gold {
+  color: #FFD700;
+}
