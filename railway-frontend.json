@@ -1,0 +1,7 @@
+{
+  "provider": "node",
+  "rootDir": "frontend",
+  "installCommand": "cd frontend && npm install",
+  "buildCommand": "cd frontend && npm run build",
+  "startCommand": "cd frontend && npx serve -s build -p $PORT"
+}
