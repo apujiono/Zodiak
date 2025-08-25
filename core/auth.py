@@ -2,9 +2,9 @@ from fastapi import HTTPException, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 from pydantic import BaseModel
-from ..utils.security import hash_password, verify_password
-from ..config.database import db
-from ..config.settings import SECRET_KEY
+from utils.security import hash_password, verify_password
+from config.database import db
+from config.settings import SECRET_KEY
 
 security = HTTPBearer()
 
@@ -37,7 +37,7 @@ async def register(user: User):
         })
         return {"msg": "Registered"}
     except Exception as e:
-        from ..utils.logger import log_error
+        from utils.logger import log_error
         log_error(e)
         raise HTTPException(500, "Server error")
 
@@ -49,7 +49,7 @@ async def login(user: User):
         token = jwt.encode({"sub": user.username}, SECRET_KEY)
         return {"token": token}
     except Exception as e:
-        from ..utils.logger import log_error
+        from utils.logger import log_error
         log_error(e)
         raise HTTPException(500, "Server error")
 
