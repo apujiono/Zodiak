@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: process.env.BACKEND_URL || 'https://your-backend-service.up.railway.app',
+  baseURL: process.env.BACKEND_URL || 'https://zodiak-production.up.railway.app',
 });
 
 api.interceptors.request.use(config => {
