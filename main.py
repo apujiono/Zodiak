@@ -11,7 +11,10 @@ from core.auth import register, login, logout
 from config.settings import ALLOWED_ORIGINS
 from config.database import init_db
 from contextlib import asynccontextmanager
-import os
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -41,20 +44,27 @@ async def health():
 async def serve_html(request: Request):
     try:
         with open("index.html", "r") as f:
+            logger.info("Serving index.html")
             return HTMLResponse(content=f.read(), status_code=200)
     except FileNotFoundError:
-        return HTMLResponse(content="<h1>404 - HTML File Not Found</h1>", status_code=500)
+        logger.error("index.html not found")
+        return HTMLResponse(content="<h1>500 - Internal Server Error</h1>", status_code=500)
+    except Exception as e:
+        logger.error(f"Error serving HTML: {str(e)}")
+        return HTMLResponse(content="<h1>500 - Internal Server Error</h1>", status_code=500)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
+        logger.info("Initializing database")
         await init_db()
+        logger.info("Database initialization completed")
     except Exception as e:
-        print(f"Error during startup: {e}")
+        logger.error(f"Startup failed: {str(e)}")
         raise
     yield
 
 app.lifespan = lifespan
 
-# Mount static files (optional, kalau pake folder static)
+# Serve static files (CSS, JS)
 app.mount("/static", StaticFiles(directory="."), name="static")
